@@ -46,6 +46,7 @@ define( 'TOC_POSITION_BEFORE_FIRST_HEADING', 1 );
 define( 'TOC_POSITION_TOP', 2 );
 define( 'TOC_POSITION_BOTTOM', 3 );
 define( 'TOC_POSITION_AFTER_FIRST_HEADING', 4 );
+define( 'TOC_POSITION_NONE', 5 );
 define( 'TOC_MIN_START', 2 );
 define( 'TOC_MAX_START', 10 );
 define( 'TOC_SMOOTH_SCROLL_OFFSET', 30 );
@@ -85,7 +86,7 @@ if ( !class_exists( 'toc' ) ) :
 			// get options
 			$defaults = array(		// default options
 				'fragment_prefix' => 'i',
-				'position' => TOC_POSITION_BEFORE_FIRST_HEADING,
+				'position' => TOC_POSITION_NONE,
 				'start' => 4,
 				'show_heading_text' => true,
 				'heading_text' => 'Contents',
@@ -699,6 +700,7 @@ if ( !class_exists( 'toc' ) ) :
 			<option value="<?php echo TOC_POSITION_AFTER_FIRST_HEADING; ?>"<?php if ( TOC_POSITION_AFTER_FIRST_HEADING == $this->options['position'] ) echo ' selected="selected"'; ?>><?php _e('After first heading', 'table-of-contents-plus'); ?></option>
 			<option value="<?php echo TOC_POSITION_TOP; ?>"<?php if ( TOC_POSITION_TOP == $this->options['position'] ) echo ' selected="selected"'; ?>><?php _e('Top', 'table-of-contents-plus'); ?></option>
 			<option value="<?php echo TOC_POSITION_BOTTOM; ?>"<?php if ( TOC_POSITION_BOTTOM == $this->options['position'] ) echo ' selected="selected"'; ?>><?php _e('Bottom', 'table-of-contents-plus'); ?></option>
+			<option value="<?php echo TOC_POSITION_NONE; ?>"<?php if ( TOC_POSITION_NONE == $this->options['position'] ) echo ' selected="selected"'; ?>><?php _e('None', 'table-of-contents-plus'); ?></option>
 		</select>
 	</td>
 </tr>
@@ -1549,7 +1551,11 @@ if ( !class_exists( 'toc' ) ) :
 									case TOC_POSITION_AFTER_FIRST_HEADING:
 										$replace[0] = $replace[0] . $html;
 										$content = $this->mb_find_replace($find, $replace, $content);
-										break;
+                    break;
+
+                  case TOC_POSITION_NONE:
+									  $content = $this->mb_find_replace($find, $replace, $content);
+									  break;  
 								
 									case TOC_POSITION_BEFORE_FIRST_HEADING:
 									default:
