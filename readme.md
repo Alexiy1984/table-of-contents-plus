@@ -1,5 +1,5 @@
 # Fork for Table of Contents Plus
-Digestive health site, Guthack.com
+This is simlpe fix for TOC Plus for our project.
 
 ## What's changed
 1. Added position `NONE` : automatically generated TOC is not displayed on the page (to prevent duplication of TOC)
