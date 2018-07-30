@@ -127,7 +127,8 @@ if ( !class_exists( 'toc' ) ) :
 				'sitemap_pages' => 'Pages',
 				'sitemap_categories' => 'Categories',
 				'show_toc_in_widget_only' => false,
-				'show_toc_in_widget_only_post_types' => array('page')
+        'show_toc_in_widget_only_post_types' => array('page'),
+        'show_comments' => false
 			);
 			$options = get_option( 'toc-options', $defaults );
 			$this->options = wp_parse_args( $options, $defaults );
@@ -652,7 +653,8 @@ if ( !class_exists( 'toc' ) ) :
 					'sitemap_show_category_listing' => (isset($_POST['sitemap_show_category_listing']) && $_POST['sitemap_show_category_listing']) ? true : false,
 					'sitemap_heading_type' => intval($_POST['sitemap_heading_type']),
 					'sitemap_pages' => stripslashes( trim($_POST['sitemap_pages']) ),
-					'sitemap_categories' => stripslashes( trim($_POST['sitemap_categories']) )
+          'sitemap_categories' => stripslashes( trim($_POST['sitemap_categories']) ),
+          'show_comments' => (isset($_POST['show_comments']) && $_POST['show_comments']) ? true : false,
 				)
 			);
 			
@@ -775,6 +777,10 @@ if ( !class_exists( 'toc' ) ) :
 <tr>
 	<th><label for="ordered_list"><?php _e('Number list items', 'table-of-contents-plus'); ?></label></th>
 	<td><input type="checkbox" value="1" id="ordered_list" name="ordered_list"<?php if ( $this->options['ordered_list'] ) echo ' checked="checked"'; ?> /></td>
+</tr>
+<tr>
+	<th><label for="show_comments"><?php _e('Show_comments', 'table-of-contents-plus'); ?></label></th>
+	<td><input type="checkbox" value="1" id="show_comments" name="show_comments"<?php if ( $this->options['show_comments'] ) echo ' checked="checked"'; ?> /></td>
 </tr>
 <tr>
 	<th><label for="smooth_scroll"><?php _e('Enable smooth scroll effect', 'table-of-contents-plus'); ?></label></th>
@@ -1250,7 +1256,10 @@ if ( !class_exists( 'toc' ) ) :
 				else {
 					// this is the last item, make sure we close off all tags
 					for ($current_depth; $current_depth >= $numbered_items_min; $current_depth--) {
-						$html .= '</li>';
+            $html .= '</li>';
+            if ( $this->options['show_comments'] ) {
+              $html .= '<li><a href="#comments">Comments<a></li>';
+            }
 						if ( $current_depth != $numbered_items_min ) $html .= '</ul>';
 					}
 				}
