@@ -11,7 +11,7 @@ for this, edit your composer.json
 
 ```json
 "repositories": [
-    { "type": "composer", "url": "https://wpackagist.org"},
+    ...
     {
       "type": "package",
       "package": {
