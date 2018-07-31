@@ -1257,7 +1257,12 @@ if ( !class_exists( 'toc' ) ) :
 					for ($current_depth; $current_depth >= $numbered_items_min; $current_depth--) {
             $html .= '</li>';
             if ( $this->options['show_comments'] ) {
-              $html .= '<li><a href="#comments">Comments</a></li>';
+              $html .= '<li><a href="#comments">'; 
+              if ( $this->options['ordered_list'] ) {
+                $html .= '<span class="toc_number toc_depth_' . ($current_depth - $numbered_items_min + 1) . '">';
+                $html .= ($numbered_items[$current_depth] + 1) . '</span> ';
+              }
+              $html .= ' Comments</a></li>';
             }
 						if ( $current_depth != $numbered_items_min ) $html .= '</ul>';
 					}
