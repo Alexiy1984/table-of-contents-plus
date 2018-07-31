@@ -1240,7 +1240,6 @@ if ( !class_exists( 'toc' ) ) :
 					$html .= strip_tags($matches[$i][0]) . '</a>';
 				}
 				
-				
 				// end lists
 				if ( $i != count($matches) - 1 ) {
 					if ( $current_depth > (int)$matches[$i + 1][2] ) {
@@ -1258,7 +1257,7 @@ if ( !class_exists( 'toc' ) ) :
 					for ($current_depth; $current_depth >= $numbered_items_min; $current_depth--) {
             $html .= '</li>';
             if ( $this->options['show_comments'] ) {
-              $html .= '<li><a href="#comments">Comments<a></li>';
+              $html .= '<li><a href="#comments">Comments</a></li>';
             }
 						if ( $current_depth != $numbered_items_min ) $html .= '</ul>';
 					}
